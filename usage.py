@@ -1,4 +1,4 @@
-import dpd_uploader
+import dpd_uploader as dpdu
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -6,7 +6,7 @@ import dash_html_components as html
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    dpd_uploader.Uploader(
+    dpdu.Uploader(
         id='input',
         value='my-value',
         label='my-label'

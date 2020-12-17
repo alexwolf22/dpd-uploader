@@ -1,7 +1,7 @@
 {
   "name": "dpd_uploader",
   "version": "0.0.1",
-  "description": "Django Plotlyu Dash Uploader Component for Large Files",
+  "description": "Django Plotly Dash Uploader Component for Large Files",
   "repository": {
     "type": "git",
     "url": "git://github.com/alexwolf22/dpd-uploader.git"
@@ -16,15 +16,16 @@
     "validate-init": "python _validate_init.py",
     "prepublishOnly": "npm run validate-init",
     "build:js": "webpack --mode production",
-    "build:py_and_r": "dash-generate-components ./src/lib/components dpd_uploader -p package-info.json --r-prefix '' --jl-prefix ''",
-    "build:py_and_r-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py_and_r)",
-    "build": "npm run build:js && npm run build:py_and_r",
-    "build:activated": "npm run build:js && npm run build:py_and_r-activated"
+    "build:py": "dash-generate-components ./src/lib/components dpd_uploader -p package-info.json",
+    "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
+    "build": "npm run build:js && npm run build:py",
+    "build:activated": "npm run build:js && npm run build:py-activated"
   },
   "author": "Alexander Wolf <alex.r.wolf22@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "resumablejs": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

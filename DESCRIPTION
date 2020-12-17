@@ -1,0 +1,13 @@
+Package: dpdUploader
+Title: Django Plotlyu Dash Uploader Component for Large Files
+Version: 0.0.1
+Description: Django Plotlyu Dash Uploader Component for Large Files
+Depends: R (>= 3.0.2)
+Imports: 
+Suggests: 
+License: MIT + file LICENSE
+URL: https://github.com/alexwolf22/dpd-uploader
+BugReports: https://github.com/alexwolf22/dpd-uploader/issues
+Encoding: UTF-8
+LazyData: true
+KeepSource: true

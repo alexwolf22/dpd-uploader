@@ -1,0 +1,7 @@
+include dpd_uploader/dpd_uploader.min.js
+include dpd_uploader/dpd_uploader.min.js.map
+include dpd_uploader/metadata.json
+include dpd_uploader/package-info.json
+include README.md
+include LICENSE
+include package.json

@@ -12,6 +12,28 @@ import Resumablejs from 'resumablejs';
 import './progressbar.css';
 import './button.css';
 
+
+function getCookie(name) {
+    /*
+    * Function to get the CSRF token needed to make post request to a django view
+    */
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const CSRFTOKEN = getCookie('csrftoken');
+
+
 export default class Uploader extends Component {
 
     static initialState = {
@@ -41,7 +63,7 @@ export default class Uploader extends Component {
     }
 
     componentDidMount() {
-
+        console.log({'X-CSRFToken': CSRFTOKEN})
         const ResumableField = new Resumablejs({
             target: this.props.service,
             query: { upload_id: this.props.upload_id },
@@ -55,7 +77,7 @@ export default class Uploader extends Component {
             },
             testMethod: 'post',
             testChunks: false,
-            headers: {},
+            headers: {'X-CSRFToken': CSRFTOKEN},
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             forceChunkSize: false

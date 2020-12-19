@@ -63,7 +63,6 @@ export default class Uploader extends Component {
     }
 
     componentDidMount() {
-        console.log({'X-CSRFToken': CSRFTOKEN})
         const ResumableField = new Resumablejs({
             target: this.props.service,
             query: { upload_id: this.props.upload_id },
@@ -77,7 +76,7 @@ export default class Uploader extends Component {
             },
             testMethod: 'post',
             testChunks: false,
-            headers: {'X-CSRFToken': CSRFTOKEN},
+            // headers: {'X-CSRFToken': CSRFTOKEN},
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             forceChunkSize: false

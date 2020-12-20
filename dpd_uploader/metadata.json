@@ -1,93 +1,71 @@
 {
   "src/lib/components/Uploader.react.js": {
-    "description": "",
+    "description": "Plotly Dash compatible component which allows\nlarge file uploads using ResumableJs",
     "displayName": "Uploader",
-    "methods": [
-      {
-        "name": "resetBuilder",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "cancelUpload",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "pauseUpload",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "startUpload",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "toggleHovered",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
-      "maxFiles": {
+      "id": {
         "type": {
-          "name": "number"
+          "name": "string"
         },
         "required": false,
-        "description": "Maximum number of files that can be uploaded in one session",
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "file_name": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The name of the file that was uploaded",
         "defaultValue": {
-          "value": "1",
+          "value": "null",
           "computed": false
         }
       },
-      "maxFileSize": {
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "string"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Children of this dash component"
+      },
+      "accepted_file_types": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "Allow specific file types to be uploaded"
+      },
+      "max_file_size": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "Maximum size per file in bytes.",
+        "description": "Maximum file size. If `-1`, then infinite",
         "defaultValue": {
           "value": "1024 * 1024 * 10",
           "computed": false
         }
       },
-      "chunkSize": {
+      "chunk_size": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "Size of file chunks to send to server.",
+        "description": "Minimum file size",
         "defaultValue": {
           "value": "1024 * 1024",
-          "computed": false
-        }
-      },
-      "simultaneousUploads": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "Number of simultaneous uploads to select"
-      },
-      "service": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "The service to send the files to",
-        "defaultValue": {
-          "value": "'/API/dash-uploader'",
           "computed": false
         }
       },
@@ -96,213 +74,20 @@
           "name": "string"
         },
         "required": false,
-        "description": "Class to add to the upload component by default",
-        "defaultValue": {
-          "value": "'resumable-default'",
-          "computed": false
-        }
+        "description": "HTML class name of the component"
       },
-      "hoveredClass": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Class to add to the upload component when it is hovered",
-        "defaultValue": {
-          "value": "'resumable-hovered'",
-          "computed": false
-        }
-      },
-      "disabledClass": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Class to add to the upload component when it is disabled",
-        "defaultValue": {
-          "value": "'resumable-disabled'",
-          "computed": false
-        }
-      },
-      "pausedClass": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Class to add to the upload component when it is paused",
-        "defaultValue": {
-          "value": "'resumable-paused'",
-          "computed": false
-        }
-      },
-      "completeClass": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Class to add to the upload component when it is complete",
-        "defaultValue": {
-          "value": "'resumable-complete'",
-          "computed": false
-        }
-      },
-      "uploadingClass": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Class to add to the upload component when it is uploading",
-        "defaultValue": {
-          "value": "'resumable-uploading'",
-          "computed": false
-        }
-      },
-      "defaultStyle": {
+      "style": {
         "type": {
           "name": "object"
         },
         "required": false,
-        "description": "Style attributes to add to the upload component",
+        "description": "CSS styles to apply upload div",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
-      "uploadingStyle": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": "Style when upload is in progress",
-        "defaultValue": {
-          "value": "{}",
-          "computed": false
-        }
-      },
-      "completeStyle": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": "Style when upload is completed (upload finished)",
-        "defaultValue": {
-          "value": "{}",
-          "computed": false
-        }
-      },
-      "textLabel": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "The string to display in the upload component",
-        "defaultValue": {
-          "value": "'Click Here to Select a File'",
-          "computed": false
-        }
-      },
-      "completedMessage": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "Message to display when upload completed",
-        "defaultValue": {
-          "value": "'Complete! '",
-          "computed": false
-        }
-      },
-      "fileNames": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": "The names of the files uploaded",
-        "defaultValue": {
-          "value": "[]",
-          "computed": false
-        }
-      },
-      "filetypes": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": "List of allowed file types, e.g. ['jpg', 'png']",
-        "defaultValue": {
-          "value": "undefined",
-          "computed": true
-        }
-      },
-      "startButton": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "Whether or not to have a start button",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "pauseButton": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "Whether or not to have a pause button",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "cancelButton": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "Whether or not to have a cancel button",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "disableDragAndDrop": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "Whether or not to allow file drag and drop",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      },
-      "setProps": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": "Dash-supplied function for updating props"
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "User supplied id of this component",
-        "defaultValue": {
-          "value": "'default-dash-uploader-id'",
-          "computed": false
-        }
-      },
-      "isCompleted": {
+      "upload_complete": {
         "type": {
           "name": "bool"
         },
@@ -313,30 +98,19 @@
           "computed": false
         }
       },
-      "upload_id": {
+      "service": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "The ID for the upload event (for example, session ID)",
-        "defaultValue": {
-          "value": "''",
-          "computed": false
-        }
+        "description": "The service to send the files to"
       },
-      "simultaneuosUploads": {
-        "defaultValue": {
-          "value": "1",
-          "computed": false
+      "setProps": {
+        "type": {
+          "name": "func"
         },
-        "required": false
-      },
-      "onUploadErrorCallback": {
-        "defaultValue": {
-          "value": "undefined",
-          "computed": true
-        },
-        "required": false
+        "required": false,
+        "description": "Dash-supplied function for updating props"
       }
     }
   }

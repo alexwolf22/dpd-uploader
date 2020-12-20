@@ -1,10 +1,10 @@
 {
   "name": "dpd_uploader",
-  "version": "0.0.3",
-  "description": "Django Plotly Dash Uploader Component for Large Files",
+  "version": "2.0.0",
+  "description": "Django Plotly Dash Uploader Component for Large Files using Resumablejs",
   "repository": {
     "type": "git",
-    "url": "git://github.com/alexwolf22/dpd-uploader.git"
+    "url": "https://github.com/Cobalt-Water-AI/dpd-uploader"
   },
   "bugs": {
     "url": "https://github.com/Cobalt-Water-AI/dpd-uploader/issues"

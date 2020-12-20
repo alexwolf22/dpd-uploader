@@ -5,41 +5,29 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Uploader(Component):
     """An Uploader component.
-
+Plotly Dash compatible component which allows
+large file uploads using ResumableJs
 
 Keyword arguments:
-- maxFiles (number; default 1): Maximum number of files that can be uploaded in one session
-- maxFileSize (number; default 1024 * 1024 * 10): Maximum size per file in bytes.
-- chunkSize (number; default 1024 * 1024): Size of file chunks to send to server.
-- simultaneousUploads (number; optional): Number of simultaneous uploads to select
-- service (string; default '/API/dash-uploader'): The service to send the files to
-- className (string; default 'resumable-default'): Class to add to the upload component by default
-- hoveredClass (string; default 'resumable-hovered'): Class to add to the upload component when it is hovered
-- disabledClass (string; default 'resumable-disabled'): Class to add to the upload component when it is disabled
-- pausedClass (string; default 'resumable-paused'): Class to add to the upload component when it is paused
-- completeClass (string; default 'resumable-complete'): Class to add to the upload component when it is complete
-- uploadingClass (string; default 'resumable-uploading'): Class to add to the upload component when it is uploading
-- defaultStyle (dict; optional): Style attributes to add to the upload component
-- uploadingStyle (dict; optional): Style when upload is in progress
-- completeStyle (dict; optional): Style when upload is completed (upload finished)
-- textLabel (string; default 'Click Here to Select a File'): The string to display in the upload component
-- completedMessage (string; default 'Complete! '): Message to display when upload completed
-- fileNames (list of strings; optional): The names of the files uploaded
-- filetypes (list of strings; default undefined): List of allowed file types, e.g. ['jpg', 'png']
-- startButton (boolean; default True): Whether or not to have a start button
-- pauseButton (boolean; default True): Whether or not to have a pause button
-- cancelButton (boolean; default True): Whether or not to have a cancel button
-- disableDragAndDrop (boolean; default False): Whether or not to allow file drag and drop
-- id (string; default 'default-dash-uploader-id'): User supplied id of this component
-- isCompleted (boolean; default False): The boolean flag telling if upload is completed.
-- upload_id (string; default ''): The ID for the upload event (for example, session ID)"""
+- children (a list of or a singular dash component, string or number | string; optional): Children of this dash component
+- id (string; optional): The ID of this component, used to identify dash components
+in callbacks. The ID needs to be unique across all of the
+components in an app.
+- file_name (string; optional): The name of the file that was uploaded
+- accepted_file_types (list of strings; optional): Allow specific file types to be uploaded
+- max_file_size (number; default 1024 * 1024 * 10): Maximum file size. If `-1`, then infinite
+- chunk_size (number; default 1024 * 1024): Minimum file size
+- className (string; optional): HTML class name of the component
+- style (dict; optional): CSS styles to apply upload div
+- upload_complete (boolean; default False): The boolean flag telling if upload is completed.
+- service (string; optional): The service to send the files to"""
     @_explicitize_args
-    def __init__(self, maxFiles=Component.UNDEFINED, maxFileSize=Component.UNDEFINED, chunkSize=Component.UNDEFINED, simultaneousUploads=Component.UNDEFINED, service=Component.UNDEFINED, className=Component.UNDEFINED, hoveredClass=Component.UNDEFINED, disabledClass=Component.UNDEFINED, pausedClass=Component.UNDEFINED, completeClass=Component.UNDEFINED, uploadingClass=Component.UNDEFINED, defaultStyle=Component.UNDEFINED, uploadingStyle=Component.UNDEFINED, completeStyle=Component.UNDEFINED, textLabel=Component.UNDEFINED, completedMessage=Component.UNDEFINED, fileNames=Component.UNDEFINED, filetypes=Component.UNDEFINED, startButton=Component.UNDEFINED, pauseButton=Component.UNDEFINED, cancelButton=Component.UNDEFINED, disableDragAndDrop=Component.UNDEFINED, id=Component.UNDEFINED, isCompleted=Component.UNDEFINED, upload_id=Component.UNDEFINED, simultaneuosUploads=Component.UNDEFINED, onUploadErrorCallback=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['maxFiles', 'maxFileSize', 'chunkSize', 'simultaneousUploads', 'service', 'className', 'hoveredClass', 'disabledClass', 'pausedClass', 'completeClass', 'uploadingClass', 'defaultStyle', 'uploadingStyle', 'completeStyle', 'textLabel', 'completedMessage', 'fileNames', 'filetypes', 'startButton', 'pauseButton', 'cancelButton', 'disableDragAndDrop', 'id', 'isCompleted', 'upload_id']
+    def __init__(self, children=None, id=Component.UNDEFINED, file_name=Component.UNDEFINED, accepted_file_types=Component.UNDEFINED, max_file_size=Component.UNDEFINED, chunk_size=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, upload_complete=Component.UNDEFINED, service=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_complete', 'service']
         self._type = 'Uploader'
         self._namespace = 'dpd_uploader'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['maxFiles', 'maxFileSize', 'chunkSize', 'simultaneousUploads', 'service', 'className', 'hoveredClass', 'disabledClass', 'pausedClass', 'completeClass', 'uploadingClass', 'defaultStyle', 'uploadingStyle', 'completeStyle', 'textLabel', 'completedMessage', 'fileNames', 'filetypes', 'startButton', 'pauseButton', 'cancelButton', 'disableDragAndDrop', 'id', 'isCompleted', 'upload_id']
+        self.available_properties = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_complete', 'service']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
@@ -51,4 +39,4 @@ Keyword arguments:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-        super(Uploader, self).__init__(**args)
+        super(Uploader, self).__init__(children=children, **args)

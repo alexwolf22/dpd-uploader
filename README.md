@@ -1,7 +1,99 @@
 # django-plotly-dash-uploader
 
-django-plotly-dash-uploader is a Dash component library.
+dash-uploader is a Django Dash component library.
 
+This component enables uploading of any fie size so files of any size can be uploaded to your app, using the [ResumableJS](http://resumablejs.com/) library. 
+
+It was also made to be compatible with the [django-plotly-dash](https://github.com/GibbsConsulting/django-plotly-dash) extension of the Dash Library.
+
+*NOTE:* The uploading does not take advantage of Django's MEDIAL url, uploading, fields, and forms. I specifically needed to make it for uploading User 'csv' and 'excel' files as a quick fix.
+
+## Usage
+
+### 1. Enable Collect Static Files for Component
+Make sure to add this library to the list in the Django Plolty Dash setting like below 
+
+```
+PLOTLY_COMPONENTS = [
+    <other added compoenets>
+     ...,
+    'dpd_uploader',
+]
+```
+
+### 2. Init the `dpd_uploader` Component
+Where you need it in you app add the component like below.
+
+The actual HTML element is just a `div` the the ResumableJS callback on it. You can add any children you want to as needed.
+
+```Python
+import dash_html_components as html
+import dash_bootstrap_components as dbc
+import dpd_uploader as du
+
+UPLOAD_API_ENDPOINT = '<REST API for ResumableJS POST callback>'
+
+component = du.Uploader(
+    id=UPLOAD_BUTTON_ID,
+    service=UPLOAD_API_ENDPOINT,
+    children=dbc.Button(
+        block=True,
+        size="lg",
+        style=UPLOAD_BUTTON_CSS,
+        color="primary",
+        children=html.Span(id=UPLOAD_BUTTON_TEXT_SPAN_ID,
+                            children="Click or drag file here to Upload."),
+    ),
+)
+```
+
+Other useful **props** for this component can be found and documented in this [file](https://github.com/alexwolf22/dpd-uploader/blob/master/dpd_uploader/Uploader.py).
+
+### 3. Create the Django POST view to handle Data Uploading
+Since this library just has the component it is up to you to build the view to handle the upload.
+
+I have shared the one I made in this repo which you can use as a reference found [here](./example_django_post_view.py). My code requires *python3*.
+You will need to set up the proper URL in Django pasted off the `UPLOAD_BUTTON_ID` you set above.
+
+**NOTE**: I only made the POST request from ResumableJS. This repo can be modified to enable uploads to be resumed after browser restarts by created a GET request in this React Component along with the Django view handling it. 
+
+### 4. Make the callback to handle the file uploading
+The callback if the file uplaod was completed with set the prop complated to `True`, and the `file_name` prop would be the name of the file which was uploaded.
+
+How every you configure your view to store your file you will need to find the correct path to on it your host machine.
+
+The callback can look something like this
+
+```python
+@app.expanded_callback(
+    output=[
+        Output(<OUPUT_ID>, <OUTPUT_PROP>)
+    ],
+    inputs=[
+        Input(UPLOAD_BUTTON_ID, "upload_complete"),
+        Input(UPLOAD_BUTTON_ID, "file_name"),
+    ]
+)
+def handle_data_upload(upload_completed: bool,
+                       file_name: Optional[str],
+                       user: User,
+                       session_state: Dict,
+                       **_kwargs: Dict) -> List:
+
+    # Get path file uploaded to with ResumableJS in Upload component
+    if not upload_completed or not file_name:
+        return [False, '', '', '']
+
+    # The full file path needs to be programmatically set based on 
+    # how you handle it in your view
+    file_path = f'/tmp/file_uploads/{file_name}'
+    
+    # Handle the filepath as needed
+```
+
+
+
+# Working with the codebase
 Get started with:
 1. Install Dash and its dependencies: https://dash.plotly.com/installation
 2. Run `python usage.py`

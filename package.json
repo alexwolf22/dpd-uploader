@@ -1,6 +1,6 @@
 {
   "name": "dpd_uploader",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Django Plotly Dash Uploader Component for Large Files using Resumablejs",
   "repository": {
     "type": "git",

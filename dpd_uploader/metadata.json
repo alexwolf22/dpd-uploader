@@ -87,12 +87,23 @@
           "computed": false
         }
       },
+      "upload_in_progress": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean flag telling if an upload is in progress completed",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "upload_complete": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "The boolean flag telling if upload is completed.",
+        "description": "Boolean flag telling for marking if upload is completed",
         "defaultValue": {
           "value": "false",
           "computed": false

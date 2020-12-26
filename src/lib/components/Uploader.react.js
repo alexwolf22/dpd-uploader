@@ -53,19 +53,16 @@ export default class Uploader extends Component {
             forceChunkSize: false
         });
 
-        this.props.setProps({
-            upload_complete: false
-        });
-
         // Enable clicking or dragging file to open upload dialog
         ResumableField.assignBrowse(this.uploader);
         ResumableField.assignDrop(this.uploader);
 
         // Start ResumableJs file uploading when user uploads one
-        ResumableField.on('fileAdded', (_file) => {
+        ResumableField.on('fileAdded', (file) => {
             this.props.setProps({
+                upload_in_progress: true,
                 upload_complete: false,
-                file_name: null,
+                file_name: file.fileName,
             });
             ResumableField.upload();
         });
@@ -73,6 +70,7 @@ export default class Uploader extends Component {
         // Set props to file name once upload finishes to trigger plotly dash callbacks
         ResumableField.on('fileSuccess', (file, _fileServer) => {
             this.props.setProps({
+                upload_in_progress: false,
                 upload_complete: true,
                 file_name: file.fileName,
             });
@@ -133,9 +131,13 @@ Uploader.propTypes = {
      * CSS styles to apply upload div
      */
     style: PropTypes.object,
+    /**
+     *  Boolean flag telling if an upload is in progress completed
+     */
+    upload_in_progress: PropTypes.bool,
 
     /**
-     *  The boolean flag telling if upload is completed.
+     *  Boolean flag telling for marking if upload is completed
      */
     upload_complete: PropTypes.bool,
 
@@ -155,5 +157,6 @@ Uploader.defaultProps = {
     max_file_size:  1024 * 1024 * 10,
     chunk_size: 1024 * 1024,
     style: {},
-    upload_complete: false
+    upload_complete: false,
+    upload_in_progress: false
 };

@@ -66,11 +66,14 @@ app.layout = html.Div(
 @app.callback(
     Output('callback-output', 'children'),
     [Input(UPLOAD_BUTTON_ID, 'upload_complete'),
+     Input(UPLOAD_BUTTON_ID, 'upload_in_progress'),
     Input(UPLOAD_BUTTON_ID, 'file_name')]
 )
-def display_output(upload_complete, file_name):
-    if upload_complete and file_name:
-        return html.Ul([html.Li([file_name])])
+def display_output(upload_complete, upload_in_progress, file_name):
+    if upload_in_progress and file_name:
+        return html.Span(f"{file_name} is uploading in progress...")
+    elif upload_complete and file_name:
+        return html.Span(f"{file_name} finished uploading")
     else:
         return []
 

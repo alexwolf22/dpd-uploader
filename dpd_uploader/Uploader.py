@@ -19,15 +19,16 @@ components in an app.
 - chunk_size (number; default 1024 * 1024): Minimum file size
 - className (string; optional): HTML class name of the component
 - style (dict; optional): CSS styles to apply upload div
-- upload_complete (boolean; default False): The boolean flag telling if upload is completed.
+- upload_in_progress (boolean; default False): Boolean flag telling if an upload is in progress completed
+- upload_complete (boolean; default False): Boolean flag telling for marking if upload is completed
 - service (string; optional): The service to send the files to"""
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, file_name=Component.UNDEFINED, accepted_file_types=Component.UNDEFINED, max_file_size=Component.UNDEFINED, chunk_size=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, upload_complete=Component.UNDEFINED, service=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_complete', 'service']
+    def __init__(self, children=None, id=Component.UNDEFINED, file_name=Component.UNDEFINED, accepted_file_types=Component.UNDEFINED, max_file_size=Component.UNDEFINED, chunk_size=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, upload_in_progress=Component.UNDEFINED, upload_complete=Component.UNDEFINED, service=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_in_progress', 'upload_complete', 'service']
         self._type = 'Uploader'
         self._namespace = 'dpd_uploader'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_complete', 'service']
+        self.available_properties = ['children', 'id', 'file_name', 'accepted_file_types', 'max_file_size', 'chunk_size', 'className', 'style', 'upload_in_progress', 'upload_complete', 'service']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
